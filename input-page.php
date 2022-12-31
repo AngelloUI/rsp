@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rsp</title>
+</head>
+<body>
 <?php
 $players_amount = null;
 $bots_amount = null;
@@ -10,7 +17,20 @@ if (isset($_POST['input_params']) && isset($_POST['bots_amount']) && isset($_POS
     } else {
         $bots_amount = (int)($_POST['bots_amount']);
         $players_amount = (int)($_POST['players_amount']);
+        echo "<form action='' method='post'>";
+        for ($i = 0; $i < $players_amount; ++$i) {
+            echo "Player{$i}", "<select>";
+            for ($j = 0; $j < count($input_params); ++$j) {
+                echo "<option>", $input_params[$j], "</option>";
+            }
+            echo "</select>", "<br>";
+        }
+        echo "<br>", "<input type='submit' value='отправить'>", " ", "<input type='reset' value='очистить'>";
+        echo "</form>";
     }
-} else {
-    echo "wrong input data", '<br>';
+}else{
+    echo "wrong params";
 }
+?>
+</body>
+</html>
