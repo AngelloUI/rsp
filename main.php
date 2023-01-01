@@ -10,6 +10,7 @@ if (isset($_POST['players_amount']) && isset($_POST['bots_amount']) && isset($_P
         $players_moves[$i] = $_POST["player$i"];
     }
     $game = new Game($players_amount, $bots_amount, $input_params, $players_moves);
+    $game->generateTableOfWDL();
     var_dump($game->findWinner());
 }
 

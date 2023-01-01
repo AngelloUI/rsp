@@ -14,19 +14,48 @@ final class Game
         $this->bots_amount = $bots_amount;
         $this->input_params = $input_params;
         $this->players_moves = $players_moves;
+        for ($i = 0; $i < $players_amount; ++$i){
+            echo "player{$i} move: {$this->players_moves[$i]}","<br>";
+        }
         $this->generateBotsMoves();
     }
 
     private function generateBotsMoves(): void
     {
         for ($i = 0; $i < $this->bots_amount; ++$i) {
-            $this->bots_moves[$i] = $this->input_params[rand(0, count($this->input_params) - 1)];
+            $this->bots_moves[$i] = $this->input_params[rand(0, count($this->input_params)-1)];
+            echo "bot{$i} move: {$this->bots_moves[$i]}","<br>";
         }
     }
 
     public function generateTableOfWDL(): void
     {
-
+        echo "<table>";
+        for ($i = 0; $i <= count($this->input_params); ++$i){
+            echo "<tr>";
+            if ($i == 0){
+                echo "<th></th>";
+                for ($j = 0; $j < count($this->input_params); ++$j){
+                    echo "<th>{$this->input_params[$j]}</th>";
+                }
+            }else{
+                echo "<th>{$this->input_params[$i-1]}</th>";
+                for ($j = 1; $j <= count($this->input_params); ++$j){
+                    if ($this->winner($this->input_params[$i-1],$this->input_params[$j-1]) == "FIRST"){
+                        echo "<td>WIN</td>";
+                    }
+                    if ($this->winner($this->input_params[$i-1],$this->input_params[$j-1]) == "SECOND"){
+                        echo "<td>LOSE</td>";
+                    }
+                    if ($this->winner($this->input_params[$i-1],$this->input_params[$j-1]) == "DRAW"){
+                        echo "<td>DRAW</td>";
+                    }
+                }
+            }
+            echo "</tr>";
+        }
+        echo "</table>";
+        echo "<br>","<br>","<br>","<br>";
     }
 
     private function winner($player1Move, $player2Move): string
