@@ -17,18 +17,22 @@ if (isset($_POST['input_params']) && isset($_POST['bots_amount']) && isset($_POS
     } else {
         $bots_amount = (int)($_POST['bots_amount']);
         $players_amount = (int)($_POST['players_amount']);
-        echo "<form action='' method='post'>";
+        echo "<form action='main.php' method='post'>";
         for ($i = 0; $i < $players_amount; ++$i) {
-            echo "Player{$i}", "<select>";
+            echo "Player{$i}", "<select name='player$i'>";
             for ($j = 0; $j < count($input_params); ++$j) {
                 echo "<option>", $input_params[$j], "</option>";
             }
             echo "</select>", "<br>";
         }
         echo "<br>", "<input type='submit' value='отправить'>", " ", "<input type='reset' value='очистить'>";
+        echo "<input type='number' value='$players_amount' name='players_amount' hidden >";
+        echo "<input type='number' value='$bots_amount' name='bots_amount' hidden >";
+        $input_params = $_POST['input_params'];
+        echo "<input type='text' value='$input_params' name='input_params' hidden >";
         echo "</form>";
     }
-}else{
+} else {
     echo "wrong params";
 }
 ?>
